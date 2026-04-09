@@ -1,14 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Flight Network Map</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Network App</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h2>Flight Network Map</h2>
-  <div id="map" style="height: 90vh;"></div>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="app.js"></script>
+  <div class="sidebar">
+    <h1>Flight Network App</h1>
+    <p>Explore airport routes and find shortest paths.</p>
+
+    <div class="control-group">
+      <label for="sourceSelect">Source Airport</label>
+      <select id="sourceSelect">
+        <option value="">Select source airport</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="targetSelect">Target Airport</label>
+      <select id="targetSelect">
+        <option value="">Select target airport</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="modeSelect">Routing Mode</label>
+      <select id="modeSelect">
+        <option value="hops">Fewest Connections</option>
+        <option value="distance">Shortest Distance</option>
+      </select>
+    </div>
+
+    <div class="button-group">
+      <button id="findPathBtn">Find Route</button>
+      <button id="clearPathBtn" class="secondary">Clear Route</button>
+      <button id="toggleRoutesBtn" class="secondary">Toggle Routes</button>
+    </div>
+
+    <div id="status" class="status">Loading airports...</div>
+
+    <div id="routeInfo" class="route-info hidden">
+      <h2>Route Details</h2>
+      <div id="routeSummary"></div>
+      <ol id="routeList"></ol>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
