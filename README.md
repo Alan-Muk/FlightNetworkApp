@@ -130,16 +130,6 @@ Returns the computed route between two airports.
 
 ---
 
-## Screenshots
-
-> Add screenshots here:
-- Airport map
-- Route visualization
-- Shortest path result
-- Route search UI
-
----
-
 ## How to Run
 
 ## 1. Clone the repository
