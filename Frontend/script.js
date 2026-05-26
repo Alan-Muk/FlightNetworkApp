@@ -197,3 +197,174 @@ document.getElementById("toggleRoutesBtn").addEventListener("click", () => {
 
 loadAirports();
 loadRoutes();
+
+// ============================================================
+// Notes on Frontend Map Application
+// ============================================================
+//
+// This frontend application provides an interactive geographic
+// visualization of the flight network using Leaflet.js.
+//
+// The application communicates with the FastAPI backend to:
+//
+//     - Load airport data
+//     - Load route data
+//     - Compute shortest flight paths
+//     - Display geographic network information on a map
+//
+//
+// Core Technologies
+// -----------------
+// - Leaflet.js
+//     Used for interactive map rendering and geographic layers.
+//
+// - OpenStreetMap
+//     Provides the base tile layer for geographic visualization.
+//
+// - Fetch API
+//     Used for asynchronous communication with the backend API.
+//
+// - GeoJSON
+//     Used as the data exchange format for airports and routes.
+//
+//
+// Application State
+// -----------------
+// Several global variables are used to track map layers and
+// application state:
+//
+//     airportsLayer
+//         Stores rendered airport markers.
+//
+//     routesLayer
+//         Stores rendered route lines.
+//
+//     pathLayer
+//         Stores the currently displayed shortest path.
+//
+//     routesVisible
+//         Tracks whether route overlays are currently enabled.
+//
+//
+// Map Initialization
+// ------------------
+// The map is initialized with:
+//
+//     - A global center point
+//     - A low zoom level for world-scale visualization
+//     - OpenStreetMap tiles as the base layer
+//
+// Airports and routes are then loaded dynamically from the API.
+//
+//
+// Airport Loading
+// ---------------
+// Airport data is requested from:
+//
+//     GET /airports
+//
+// Airports are rendered as Leaflet circle markers and include:
+//
+//     - Airport name
+//     - City and country
+//     - IATA code
+//     - Airport ID
+//
+// Popup information is attached to each marker.
+//
+// Airport data is also used to populate the source and target
+// dropdown menus for shortest path selection.
+//
+//
+// Route Loading
+// --------------
+// Route data is requested from:
+//
+//     GET /routes
+//
+// Routes are rendered as GeoJSON LineString features.
+//
+// A configurable limit is used to reduce rendering overhead
+// because drawing thousands of geographic lines in the browser
+// can impact performance.
+//
+// Route visibility can be toggled on and off dynamically.
+//
+//
+// Shortest Path Functionality
+// ---------------------------
+// Users can select:
+//
+//     - Source airport
+//     - Destination airport
+//     - Routing mode
+//
+// Two routing modes are supported:
+//
+//     1. hops
+//         Finds the route with the fewest flight connections.
+//
+//     2. distance
+//         Finds the geographically shortest route.
+//
+// The frontend sends requests to:
+//
+//     GET /shortest-path
+//
+// The returned airport sequence is converted into a Leaflet
+// polyline and displayed on the map.
+//
+//
+// Route Visualization
+// -------------------
+// The computed shortest path is:
+//
+//     - Rendered as a highlighted polyline
+//     - Automatically zoomed into using fitBounds()
+//     - Displayed alongside route summary information
+//
+// Additional route details shown include:
+//
+//     - Number of stops
+//     - Total travel distance
+//     - Ordered airport list
+//
+//
+// Error Handling
+// --------------
+// Basic error handling is implemented for:
+//
+//     - Failed API requests
+//     - Invalid airport selections
+//     - Missing routes between airports
+//
+// User-friendly status messages are displayed in the UI.
+//
+//
+// Performance Considerations
+// --------------------------
+// - Route rendering is capped to reduce browser load.
+//
+// - Existing layers are removed before re-rendering to avoid
+//   duplicate map objects.
+//
+// - GeoJSON is used because it integrates efficiently with
+//   Leaflet.
+//
+// - Path rendering occurs only when requested by the user.
+//
+//
+// Potential Future Improvements
+// -----------------------------
+// - Add airport search/autocomplete
+// - Add route animation
+// - Add airline-based filtering
+// - Add clustering for dense airport regions
+// - Add loading indicators/spinners
+// - Add dark mode map themes
+// - Add mobile responsiveness improvements
+// - Cache API responses for performance
+// - Add airport statistics and analytics
+// - Support real-time flight data integration
+//
+// ============================================================
