@@ -187,3 +187,67 @@ def load_graph() -> nx.DiGraph:
     print(f"Skipped duplicate edges: {duplicate_edges}")
 
     return G
+
+# ============================================================
+# Notes on Implementation
+# ============================================================
+#
+# This module builds a directed flight network graph using
+# airport and route datasets from the OpenFlights project.
+#
+# Data Flow
+# ---------
+# 1. Airport data is loaded and cleaned:
+#       - Missing critical fields are removed
+#       - Coordinate columns are converted to floats
+#       - Airport IDs are normalized to integers
+#
+# 2. Route data is loaded and validated:
+#       - Routes without valid airport IDs are discarded
+#       - Stop counts are converted to integers
+#
+# 3. Invalid routes are filtered out:
+#       - Any route referencing airports not present in the
+#         airport dataset is removed before graph creation
+#
+# 4. A directed NetworkX graph is constructed:
+#       - Each airport becomes a node
+#       - Each route becomes a directed edge
+#
+# 5. Route distances are calculated:
+#       - Geographic distance is computed using the
+#         Haversine formula based on airport coordinates
+#
+# Design Decisions
+# ----------------
+# - A DiGraph is used because flight routes are directional.
+#
+# - Self-loops are ignored since flights from an airport to
+#   itself are not meaningful in this network context.
+#
+# - Duplicate directed edges are skipped because a standard
+#   NetworkX DiGraph only stores one edge between node pairs.
+#
+# - Missing optional metadata fields are replaced with
+#   None or "Unknown" to simplify downstream processing.
+#
+# Output
+# ------
+# The final graph contains:
+#
+# Nodes:
+#     Airport metadata including name, location, codes,
+#     and coordinates.
+#
+# Edges:
+#     Route metadata including airline, equipment,
+#     stop count, and route distance in kilometers.
+#
+# The resulting graph can be used for:
+#     - Route analysis
+#     - Shortest path algorithms
+#     - Centrality calculations
+#     - Network visualization
+#     - Connectivity analysis
+#
+# ============================================================
