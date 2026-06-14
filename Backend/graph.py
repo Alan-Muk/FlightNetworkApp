@@ -19,7 +19,7 @@ ROUTE_COLUMNS = [
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "Data"
-AIRPORTS_FILE = DATA_DIR / "airlines.dat"
+AIRPORTS_FILE = DATA_DIR / "airports.dat"
 ROUTES_FILE = DATA_DIR / "routes.dat"
 
 
